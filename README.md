@@ -1,5 +1,5 @@
 # stacklang
-Search every line of a file on StackOverflow to (maybe) generate poorly written Java source code, heavily inspired by [stacksort](https://github.com/gkoberger/stacksort).
+Search for stuff on StackOverflow to (maybe) generate poorly written Java source code, heavily inspired by [stacksort](https://github.com/gkoberger/stacksort).
 This repo's source code is also poorly written. Don't look at it too hard.
 
 ## How does it work?
