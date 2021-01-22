@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 public class Stackoverflow {
-	private static final String SEARCH_API = "https://api.stackexchange.com/2.2/similar?pageSize=100&page=%s&order=desc&sort=relevance&tagged=java&title=%s&site=stackoverflow&filter=!-MOiN_e9MJYANNGoGf9VS-AlBqHSUbO)y";
+	private static final String SEARCH_API = "https://api.stackexchange.com/2.2/similar?pageSize=30&page=%s&order=desc&sort=relevance&tagged=java&title=%s&site=stackoverflow&filter=!-MOiN_e9MJYANNGoGf9VS-AlBqHSUbO)y";
 
 	public static class Parameter {
 		private final String name;
@@ -92,7 +92,6 @@ public class Stackoverflow {
 	public static class Search {
 		private final String searchText;
 		private final List<FoundMethod> methods = new ArrayList<>();
-		private int currentIndex = 0;
 		private int currentSearchPage = 0;
 		private boolean keepSearching = true;
 
@@ -262,8 +261,8 @@ public class Stackoverflow {
 				search();
 			}
 
-			FoundMethod method = methods.get(0);
-			methods.remove(0);
+			FoundMethod method = methods.get(methods.size() - 1);
+			methods.remove(method);
 			return method;
 		}
 	}
