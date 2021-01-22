@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 public class Stackoverflow {
-	private static final String SEARCH_API = "https://api.stackexchange.com/2.2/similar?pageSize=30&page=%s&order=desc&sort=relevance&tagged=java&title=%s&site=stackoverflow&filter=!-MOiN_e9MJYANNGoGf9VS-AlBqHSUbO)y";
+	private static final String SEARCH_API = "https://api.stackexchange.com/2.2/similar?pageSize=30&page=%s&order=desc&sort=relevance&tagged=java&title=%s&site=stackoverflow&filter=!*1SiaJ-d)EqMkRL7Seq6Ua0V)*K1YUKyZPKUZ38x*";
 
 	public static class Parameter {
 		private final String name;
@@ -45,14 +45,16 @@ public class Stackoverflow {
 		private final String name;
 		private final String type;
 		private final String sourceLink;
+		private final String licenseInfo;
 		private final List<Parameter> parameters;
 		private final List<String> imports;
 
-		public FoundMethod(List<String> bodyCode, String name, String type, String sourceLink, List<Parameter> parameters, List<String> imports) {
+		public FoundMethod(List<String> bodyCode, String name, String type, String sourceLink, String licenseInfo, List<Parameter> parameters, List<String> imports) {
 			this.bodyCode = bodyCode;
 			this.name = name;
 			this.type = type;
 			this.sourceLink = sourceLink;
+			this.licenseInfo = licenseInfo;
 			this.parameters = parameters;
 			this.imports = imports;
 			if(!parameters.isEmpty()) {
@@ -86,6 +88,10 @@ public class Stackoverflow {
 
 		public String getSourceLink() {
 			return sourceLink;
+		}
+
+		public String getLicenseInfo() {
+			return licenseInfo;
 		}
 	}
 
@@ -239,7 +245,9 @@ public class Stackoverflow {
 												}
 											}
 
-											FoundMethod method = new FoundMethod(currentMethod, methodName, type, answerO.get("link").getAsString(), parameters, imports);
+											String licenseInfo = "Licensed under " + answerO.get("content_license").getAsString() + " by " + answerO.get("owner").getAsJsonObject().get("link").getAsString();
+
+											FoundMethod method = new FoundMethod(currentMethod, methodName, type, answerO.get("link").getAsString(), licenseInfo, parameters, imports);
 											methods.add(method);
 										} finally {
 											currentMethod = new ArrayList<>();
@@ -294,6 +302,7 @@ public class Stackoverflow {
 
 		finalized.addAll(method.getImports());
 		finalized.add("//" + method.getSourceLink());
+		finalized.add("//" + method.getLicenseInfo());
 		finalized.add("//Original method name: " + method.getName());
 		finalized.add("public static " + method.getType() + " " + name + "(" + params + ") {");
 		for(String s : method.getBodyCode()) {
