@@ -57,6 +57,7 @@ public class FindAverage {
 
 	//find the average of numbers
 	//https://stackoverflow.com/questions/12002332/how-to-manipulate-arrays-find-the-average-beginner-java/12003793#12003793
+	//Licensed under CC BY-SA 3.0 by https://stackoverflow.com/users/1559445/mssb
 	//Original method name: average
 	public static double method_0(int... data) {
 		int sum = 0;
@@ -70,6 +71,7 @@ public class FindAverage {
 
 	//convert double to string
 	//https://stackoverflow.com/questions/3678008/double-to-string-formatting/3678580#3678580
+	//Licensed under CC BY-SA 2.5 by https://stackoverflow.com/users/7412/dogbane
 	//Original method name: format
 	public static String method_1(double number) {
 		DecimalFormat formatter = new DecimalFormat("#");
@@ -81,6 +83,7 @@ public class FindAverage {
 
 	//print something to console
 	//https://stackoverflow.com/questions/49932547/how-to-print-something-from-another-class/49932620#49932620
+	//Licensed under CC BY-SA 3.0 by https://stackoverflow.com/users/2887300/tran-ho
 	//Original method name: Add
 	public static int method_2(String... args) {
 		int a = Integer.parseInt(args[0]);
